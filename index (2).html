@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melisa ❤️ Deniz | Ultimate</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+background:radial-gradient(circle at top,#1a001f,#000);
+color:white;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.screen{
+display:none;
+width:100%;
+height:100vh;
+padding:25px;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.screen.active{display:flex;}
+
+h1{
+font-size:2.5rem;
+margin-bottom:15px;
+text-shadow:0 0 20px #ff4d6d;
+}
+
+p{
+font-size:1.1rem;
+line-height:1.8;
+max-width:700px;
+}
+
+.btn{
+margin-top:20px;
+padding:14px 30px;
+border:none;
+border-radius:30px;
+font-size:18px;
+cursor:pointer;
+background:#ff4d6d;
+color:white;
+font-weight:bold;
+box-shadow:0 0 20px #ff4d6d;
+transition:0.2s;
+}
+
+.btn:hover{transform:scale(1.05);}
+
+.photo{
+width:300px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(255,255,255,.3);
+margin-bottom:20px;
+}
+
+/* HEART */
+.heart{
+position:fixed;
+top:-20px;
+color:#ff4d6d;
+animation:fall linear forwards;
+pointer-events:none;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh);opacity:0;}
+}
+
+/* CONFETTI */
+.confetti{
+position:fixed;
+top:-10px;
+width:8px;
+height:8px;
+animation:fallC 3s linear forwards;
+z-index:999;
+}
+
+@keyframes fallC{
+to{transform:translateY(110vh) rotate(720deg);opacity:0;}
+}
+
+/* FINAL SHAKE */
+.shake{
+animation:shake 0.1s infinite;
+}
+
+@keyframes shake{
+0%{transform:translate(0,0);}
+50%{transform:translate(2px,-2px);}
+100%{transform:translate(-2px,2px);}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="muzik.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 1 -->
+<div class="screen active" id="s0">
+<h1>Bir Hikâye Başlıyor...</h1>
+<p>Melisa ❤️ Deniz<br><br>
+Bu sadece bir site değil…<br>
+Kalpten gelen bir hikâye.</p>
+<button class="btn" onclick="next(); startMusic()">Başla ❤️</button>
+</div>
+
+<!-- 2 -->
+<div class="screen" id="s1">
+<h1>Seni kırdıysam…</h1>
+<p>Gerçekten özür dilerim.<br><br>
+Hiçbir zaman seni üzmek istemedim.</p>
+<button class="btn" onclick="next()">Devam</button>
+</div>
+
+<!-- 3 -->
+<div class="screen" id="s2">
+<h1>Sen benim için…</h1>
+<p>Bir insanın hayatına bu kadar anlam katması normal değil.<br>
+Ama sen yaptın.</p>
+<button class="btn" onclick="next()">Şiir</button>
+</div>
+
+<!-- 4 -->
+<div class="screen" id="s3">
+<h1>Şiir</h1>
+<p>
+Gecenin içinde adın var…<br>
+Kalbimin en sessiz yerinde…<br><br>
+
+Sen sadece bir kişi değilsin,<br>
+Sen bir duygusun artık.<br><br>
+
+Ve bazı duygular…<br>
+asla bitmez.
+</p>
+<button class="btn" onclick="next()">Devam</button>
+</div>
+
+<!-- 5 -->
+<div class="screen" id="s4">
+<h1>Son Sahne</h1>
+<p>
+Seni kaybetmek istemiyorum…<br><br>
+Çünkü sen benim hayatımın en gerçek parçasısın.
+</p>
+<button class="btn" onclick="next()">Final</button>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="s5">
+<h1>❤️ Beni affeder misin? ❤️</h1>
+
+<p style="margin-top:10px;max-width:700px">
+Yaptığım her şey için çok özür dilerim bitanem…<br><br>
+
+Sen benim her şeyimsin.<br>
+Ne olursa olsun senden vazgeçmeyeceğim.<br><br>
+
+Nolur bizi erteleme…<br>
+Seni çok seviyorum ❤️
+</p>
+
+<button class="btn" id="yesBtn">Evet ❤️</button>
+<button class="btn" id="noBtn" style="background:#333;">Hayır</button>
+</div>
+
+<script>
+
+let current=0;
+
+/* PAGE */
+function next(){
+document.getElementById("s"+current).classList.remove("active");
+current++;
+document.getElementById("s"+current).classList.add("active");
+
+if(current===5){
+startFinal();
+}
+}
+
+/* MUSIC */
+function startMusic(){
+document.getElementById("music").play().catch(()=>{});
+}
+
+/* HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(Math.random()*20+10)+"px";
+h.style.animationDuration=(Math.random()*4+3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+},200);
+
+/* CONFETTI */
+function confetti(){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=`hsl(${Math.random()*360},100%,60%)`;
+c.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),5000);
+}
+
+/* FINAL EFFECTS */
+function startFinal(){
+document.body.classList.add("shake");
+
+/* CONFETTI STORM */
+setInterval(confetti,30);
+
+/* MUSIC BOOST */
+let m=document.getElementById("music");
+m.volume=0.2;
+setTimeout(()=>m.volume=1,2000);
+}
+
+/* YES */
+document.getElementById("yesBtn").onclick=function(){
+startFinal();
+alert("❤️ MUTLU SON ❤️");
+};
+
+/* NO */
+let noCount=0;
+document.getElementById("noBtn").onclick=function(){
+noCount++;
+
+this.style.transform=`translate(${Math.random()*100-50}px,${Math.random()*50-25}px)`;
+
+if(noCount>=4){
+this.innerText="Evet ❤️";
+this.onclick=()=>startFinal();
+this.style.background="#ff4d6d";
+}
+};
+
+</script>
+
+</body>
+</html>
